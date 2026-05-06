@@ -57,17 +57,23 @@ export default function CareerTimeline() {
   const blipRef = useRef(null);
   const animRef = useRef(null);
   const progressRef = useRef(0);
+  const lastTimeRef = useRef(null);
 
   // Animate the blip along the path
   useEffect(() => {
-    let lastTime = performance.now();
-    const speed = 0.00012; // slower for smooth feel
+    const speed = 0.00012;
 
     const animate = (time) => {
-      const dt = time - lastTime;
-      lastTime = time;
+      if (lastTimeRef.current === null) {
+        lastTimeRef.current = time;
+      }
+      const dt = time - lastTimeRef.current;
+      lastTimeRef.current = time;
+
       progressRef.current += dt * speed;
-      if (progressRef.current > positions.length - 1) progressRef.current = 0;
+      if (progressRef.current >= positions.length - 1) {
+        progressRef.current = 0;
+      }
 
       const idx = Math.floor(progressRef.current);
       const t = progressRef.current - idx;
@@ -78,22 +84,33 @@ export default function CareerTimeline() {
       const cy = from.y + (to.y - from.y) * t;
 
       if (blipRef.current) {
-        blipRef.current.setAttribute('cx', cx);
-        blipRef.current.setAttribute('cy', cy);
+        blipRef.current.setAttribute('cx', String(cx));
+        blipRef.current.setAttribute('cy', String(cy));
       }
 
       // Update active node based on nearest
-      const nearest = positions.reduce((best, p, i) => {
-        const dist = Math.abs(cx - p.x) + Math.abs(cy - p.y);
-        return dist < best.dist ? { dist, i } : best;
-      }, { dist: Infinity, i: 0 });
+      let minDist = Infinity;
+      let nearestIdx = 0;
+      for (let i = 0; i < positions.length; i++) {
+        const dist = Math.abs(cx - positions[i].x) + Math.abs(cy - positions[i].y);
+        if (dist < minDist) {
+          minDist = dist;
+          nearestIdx = i;
+        }
+      }
 
-      setActiveNode(nearest.i);
+      setActiveNode(nearestIdx);
       animRef.current = requestAnimationFrame(animate);
     };
 
+    // Start animation
     animRef.current = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animRef.current);
+
+    return () => {
+      if (animRef.current) {
+        cancelAnimationFrame(animRef.current);
+      }
+    };
   }, []);
 
   const active = careerNodes[activeNode];
