@@ -104,11 +104,11 @@ export default function CareerTimeline() {
         <p className="section-label">Traced Live</p>
         <h2 className="section-title">Career Progression</h2>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+        <div className="hidden lg:grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           {/* SVG Timeline */}
-          <div className="lg:col-span-2 overflow-x-auto">
+          <div className="lg:col-span-2">
             <svg
-              className="w-full h-auto min-w-[500px]"
+              className="w-full h-auto"
               viewBox="0 0 700 220"
               preserveAspectRatio="xMidYMid meet"
               aria-label="Career timeline"
@@ -215,8 +215,8 @@ export default function CareerTimeline() {
           </aside>
         </div>
 
-        {/* Mobile fallback — vertical list */}
-        <div className="lg:hidden mt-10 space-y-3">
+        {/* Mobile — vertical list */}
+        <div className="lg:hidden space-y-3">
           {[...careerNodes].reverse().map((node) => (
             <div
               key={node.id}
