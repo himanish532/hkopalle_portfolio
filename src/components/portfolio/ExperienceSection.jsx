@@ -61,7 +61,7 @@ export default function ExperienceSection() {
 
         <div className="relative">
           {/* Timeline line */}
-          <div className="absolute left-5 top-0 bottom-0 w-px bg-border hidden md:block" />
+          <div className="absolute left-5 top-0 bottom-0 w-px bg-border hidden md:block" aria-hidden="true" />
 
           <div className="space-y-12">
             {jobs.map((job, i) => (
