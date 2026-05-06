@@ -28,7 +28,7 @@ export default function HeroSection() {
               </div>
             </div>
 
-            <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 leading-[1.1]">
+            <h1 className="font-display text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 leading-[1.1]">
               Building data platforms
               <span className="text-accent"> — made to scale.</span>
             </h1>
