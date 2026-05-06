@@ -25,7 +25,7 @@ export default function ContactSection() {
             href="mailto:himanishkopalle@gmail.com"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-border font-medium hover:bg-card transition-colors"
           >
-            <Mail size={18} /> himanishkopalle@gmail.com
+            <Mail size={18} /> Connect via Email
           </a>
         </div>
 
